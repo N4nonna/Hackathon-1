@@ -5,7 +5,9 @@ var moment = require('moment');
 moment().format(); 
 
 const fetch = require('node-fetch');
+require('../models/connection');
 const Trip = require('../models/trips');
+const Travel = require('../models/travels');
 const {} = require('../modules/bookings');
 
 /* GET bookings page. */
