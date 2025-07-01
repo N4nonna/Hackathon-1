@@ -3,11 +3,11 @@ var router = express.Router();
 
 const fetch = require('node-fetch');
 const Trip = require('../models/trips');
-const {} = require('../modules/index');
+const {} = require('../modules/carts');
 
-/* GET home page. */
+/* GET carts page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	res.render('index', { title: 'carts' });
 });
 
 module.exports = router;
