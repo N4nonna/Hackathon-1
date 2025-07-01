@@ -6,7 +6,6 @@ var logger = require('morgan');
 
 require('./models/connection');
 
-
 var indexRouter = require('./routes/index');
 var bookingsRouter = require('./routes/bookings');
 var cartsRouter = require('./routes/carts');
