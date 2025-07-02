@@ -11,38 +11,38 @@ const Travel = require('../models/travels');
 
 /* POST new travel in travels collection. body -> _id */
 router.post('/', function(req, res) {
-	let _id = req.body.id;
-	// find doc in trips
-	Trip.findById(_id).then(dataTrip => {
-		let date = moment(dataTrip.date).format();
-		let hour = moment(dataTrip.date).format();
-		// create new doc in travels
-		const newTravel = new Travel({
-			arrival: dataTrip.arrival,
-			departure: dataTrip.departure,
-			date : moment(date).format('YYYY-MM-DD'),
-			hour : moment(hour).format('HH:MM'),
-			price: dataTrip.price,
-			isPurchased: false,
-		})
-		newTravel.save().then(() => { 
-			console.log('new travel added to DB');
-			// retirn all travels doc
-			Travel.find().then(travels => {
-				if (travels[0])
-					res.json({result: true, travels})
-				else
-					res.json({result: false, error: 'No travels registred'})
-			})
-		});
-	});
+  let _id = req.body.id;
+  // find doc in trips
+  Trip.findById(_id).then(dataTrip => {
+    let date = moment(dataTrip.date).format();
+    let hour = moment(dataTrip.date).format();
+    // create new doc in travels
+    const newTravel = new Travel({
+      arrival: dataTrip.arrival,
+      departure: dataTrip.departure,
+      date : moment(date).format('YYYY-MM-DD'),
+      hour : moment(hour).format('HH:MM'),
+      price: dataTrip.price,
+      isPurchased: false
+    })
+    newTravel.save().then(() => { 
+      console.log('new travel added to DB');
+      // return all travels doc
+      Travel.find().then(travels => {
+        if (travels[0])
+          res.json({result: true, travels})
+        else
+          res.json({result: false, error: 'No travels registred'})
+      })
+    });
+  });
 });
 
 // GET travels collection in cart page.
 router.get('/', function(req, res) {
 	Travel.find().then(travels => {
 		if (travels[0])
-			res.json({result: true, travel: travels});
+			res.json({result: true, travels});
 		else
 			res.json({result: false, error: 'No travels registred'})
 	})
