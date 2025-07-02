@@ -9,17 +9,26 @@ const Travel = require('../models/travels');
 const {} = require('../modules/bookings');
 
 
-/* GET new booked travel. */
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
 	Travel.updateMany({}, {isPurchased : true}).then(data => {
 		if (data.modifiedCount > 0) {
-			Travel.find({isPurchased : true}).then(data => {
+			Travel.find({this: true}).then(data => {
 				if (data[0])
 					res.json({result: true, booked: data});
 				else
-					res.json({result: false, error: 'No purchased travel yet'})
-			})
+					res.json({result: false, error: 'No purchased travel yet'});
+			});
 		}
+	});
+});
+
+/* GET new booked travel. */
+router.get('/', function(req, res) {
+	Travel.find({isPurchased : true}).then(data => {
+		if (data[0])
+			res.json({result: true, booked: data});
+		else
+			res.json({result: false, error: 'No purchased travel yet'})
 	})
 });
 
