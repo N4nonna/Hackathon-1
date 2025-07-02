@@ -16,7 +16,6 @@ router.post('/', (req, res) => {
   departure = req.body.departure;
   arrival = req.body.arrival;
   date = req.body.date;
-  console.log(findDate(date));
   if (checkTrip(departure, arrival, date)) {
     Trip.find({departure: findElem(departure), arrival: findElem(arrival), date : findDate(date)})
       .then(dataTrip => {
