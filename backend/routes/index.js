@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
   if (checkTrip(departure, arrival, date)) {
     Trip.find({departure: findElem(departure), arrival: findElem(arrival), date : findDate(date)})
       .then(dataTrip => {
-        if (dataTrip) {
+        if (dataTrip[0]) {
           res.json({result: true, trip : dataTrip });
         }else
           res.json({result : false, error: 'No travel found with those infos.'});

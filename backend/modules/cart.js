@@ -11,6 +11,7 @@ function createTravel(dataTrip) {
 	date : moment(date).format('YYYY-MM-DD'),
 	hour : moment(hour).format('HH:MM'),
 	price: dataTrip.price,
+	isPurchased: false,
 	})
 	newTravel.save().then(travels => { 
 		console.log('new travel added to DB');

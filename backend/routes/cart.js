@@ -23,12 +23,13 @@ router.post('/', function(req, res) {
 			date : moment(date).format('YYYY-MM-DD'),
 			hour : moment(hour).format('HH:MM'),
 			price: dataTrip.price,
+			isPurchased: false,
 		})
 		newTravel.save().then(() => { 
 			console.log('new travel added to DB');
 			// retirn all travels doc
 			Travel.find().then(travels => {
-				if (travels)
+				if (travels[0])
 					res.json({result: true, travels})
 				else
 					res.json({result: false, error: 'No travels registred'})
@@ -40,7 +41,7 @@ router.post('/', function(req, res) {
 // GET travels collection in cart page.
 router.get('/', function(req, res) {
 	Travel.find().then(travels => {
-		if (travels)
+		if (travels[0])
 			res.json({result: true, travel: travels});
 		else
 			res.json({result: false, error: 'No travels registred'})
@@ -53,7 +54,8 @@ router.delete('/', function(req, res) {
     if (deletedDoc.deletedCount > 0) {
       // document successfully deleted and return all travels doc
       Travel.find().then(data => {
-        res.json({ result: true, travels: data });
+				if (data[0])
+          res.json({ result: true, travels: data });
       });
     } else {
       res.json({ result: false, error: "No travels registered" });
